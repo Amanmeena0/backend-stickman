@@ -1,10 +1,34 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+export const parseClientUrls = (envVal?: string): string[] => {
+  if (!envVal) return ['*'];
+
+  let cleaned = envVal.trim();
+  if (cleaned.startsWith('[') && cleaned.endsWith(']')) {
+    cleaned = cleaned.slice(1, -1);
+  }
+
+  const urls = cleaned
+    .split(',')
+    .map((url) => url.trim().replace(/^['"]|['"]$/g, ''))
+    .filter(Boolean)
+    .map((url) => {
+      if (url === '*') return '*';
+      try {
+        return new URL(url).origin;
+      } catch {
+        return url;
+      }
+    });
+
+  return urls.length > 0 ? urls : ['*'];
+};
+
 export const CONFIG = {
   PORT: parseInt(process.env.PORT || '3000', 10),
   NODE_ENV: process.env.NODE_ENV || 'development',
-  CLIENT_URL: process.env.CLIENT_URL || '*',
+  CLIENT_URL: parseClientUrls(process.env.CLIENT_URL),
   TICK_RATE: parseInt(process.env.TICK_RATE || '60', 10),
   MAX_ROOMS: parseInt(process.env.MAX_ROOMS || '1000', 10),
   ROOM_INACTIVE_TIMEOUT_MS: parseInt(process.env.ROOM_INACTIVE_TIMEOUT_MS || '300000', 10), // 5 min

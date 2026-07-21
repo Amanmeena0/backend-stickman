@@ -13,7 +13,7 @@ const server = http.createServer(app);
 
 const io = new Server<ClientToServerEvents, ServerToClientEvents, {}, SocketData>(server, {
   cors: {
-    origin: CONFIG.CLIENT_URL,
+    origin: CONFIG.CLIENT_URL.includes('*') ? '*' : CONFIG.CLIENT_URL,
     methods: ['GET', 'POST'],
     credentials: true,
   },

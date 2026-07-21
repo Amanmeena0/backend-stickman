@@ -15,7 +15,7 @@ export function createApp(roomManager: RoomManager): Application {
   app.use(helmet());
   app.use(
     cors({
-      origin: CONFIG.CLIENT_URL,
+      origin: CONFIG.CLIENT_URL.includes('*') ? '*' : CONFIG.CLIENT_URL,
       credentials: true,
     })
   );
