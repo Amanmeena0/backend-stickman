@@ -13,10 +13,19 @@ export function createApp(roomManager: RoomManager): Application {
 
   // Security and performance middleware
   app.use(helmet());
+
+  const isWildcardCors = CONFIG.CLIENT_URL.includes('*');
   app.use(
     cors({
-      origin: CONFIG.CLIENT_URL.includes('*') ? '*' : CONFIG.CLIENT_URL,
-      credentials: true,
+      origin: isWildcardCors
+        ? '*'
+        : (origin, callback) => {
+            if (!origin || CONFIG.CLIENT_URL.includes(origin) || CONFIG.NODE_ENV === 'development') {
+              return callback(null, true);
+            }
+            return callback(null, true);
+          },
+      credentials: !isWildcardCors,
     })
   );
   app.use(compression());
@@ -29,6 +38,7 @@ export function createApp(roomManager: RoomManager): Application {
   // Controllers & Routes
   const healthController = new HealthController(roomManager);
 
+  app.get('/', healthController.getHealth);
   app.get('/health', healthController.getHealth);
   app.get('/metrics', healthController.getMetrics);
   app.get('/rooms', healthController.getRooms);

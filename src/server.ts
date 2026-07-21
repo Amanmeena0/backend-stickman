@@ -11,11 +11,20 @@ const roomManager = new RoomManager();
 const app = createApp(roomManager);
 const server = http.createServer(app);
 
+const isWildcardCors = CONFIG.CLIENT_URL.includes('*');
+
 const io = new Server<ClientToServerEvents, ServerToClientEvents, {}, SocketData>(server, {
   cors: {
-    origin: CONFIG.CLIENT_URL.includes('*') ? '*' : CONFIG.CLIENT_URL,
+    origin: isWildcardCors
+      ? '*'
+      : (origin, callback) => {
+          if (!origin || CONFIG.CLIENT_URL.includes(origin) || CONFIG.NODE_ENV === 'development') {
+            return callback(null, true);
+          }
+          return callback(null, true);
+        },
     methods: ['GET', 'POST'],
-    credentials: true,
+    credentials: !isWildcardCors,
   },
   pingInterval: 10000,
   pingTimeout: 5000,
@@ -37,9 +46,10 @@ server.on('error', (err: any) => {
 });
 
 // Start HTTP & Socket server
+const HOST = CONFIG.HOST;
 const PORT = CONFIG.PORT;
-server.listen(PORT, () => {
-  Logger.info(`🚀 Stickman Battle Server running on port ${PORT}`);
+server.listen(PORT, HOST, () => {
+  Logger.info(`🚀 Stickman Battle Server running on http://${HOST}:${PORT}`);
   Logger.info(`Environment: ${CONFIG.NODE_ENV}`);
   Logger.info(`Tick Rate: ${CONFIG.TICK_RATE} FPS`);
 });

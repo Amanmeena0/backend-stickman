@@ -22,11 +22,13 @@ export const parseClientUrls = (envVal?: string): string[] => {
       }
     });
 
+  if (urls.includes('*')) return ['*'];
   return urls.length > 0 ? urls : ['*'];
 };
 
 export const CONFIG = {
-  PORT: parseInt(process.env.PORT || '3000', 10),
+  HOST: process.env.HOST || '0.0.0.0',
+  PORT: parseInt(process.env.PORT || '3001', 10),
   NODE_ENV: process.env.NODE_ENV || 'development',
   CLIENT_URL: parseClientUrls(process.env.CLIENT_URL),
   TICK_RATE: parseInt(process.env.TICK_RATE || '60', 10),

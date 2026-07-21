@@ -29,6 +29,7 @@ export interface ServerToClientEvents {
   'room-joined': (data: { roomId: string; roomCode: string; playerId: string; reconnectToken: string; playerIndex: number; gameState: GameState }) => void;
   'room-full': (data: { message: string }) => void;
   'room-not-found': (data: { message: string }) => void;
+  'room-error': (data: { code: string; message: string }) => void;
   'player-joined': (data: { playerId: string; nickname: string; playerIndex: number; ready: boolean }) => void;
   'player-left': (data: { playerId: string; nickname: string; reason?: string }) => void;
   'game-start': (data: { gameState: GameState }) => void;

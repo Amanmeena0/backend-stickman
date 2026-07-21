@@ -72,6 +72,7 @@ export function registerRoomHandlers(
       }
     } catch (err: any) {
       Logger.warn(`create-room error: ${err.message}`);
+      socket.emit('room-error', { code: 'INVALID_CREATE_PAYLOAD', message: err.message || 'Failed to create room' });
       socket.emit('error', { code: 'INVALID_CREATE_PAYLOAD', message: err.message || 'Failed to create room' });
     }
   });
@@ -83,12 +84,18 @@ export function registerRoomHandlers(
       const room = roomManager.getRoomByCode(payload.roomCode);
 
       if (!room) {
-        socket.emit('room-not-found', { message: `Room code ${payload.roomCode} not found` });
+        const message = `Room code ${payload.roomCode} not found`;
+        socket.emit('room-not-found', { message });
+        socket.emit('room-error', { code: 'INVALID_CODE', message });
+        socket.emit('error', { code: 'INVALID_CODE', message });
         return;
       }
 
       if (room.isFull()) {
-        socket.emit('room-full', { message: `Room ${payload.roomCode} is full` });
+        const message = `Room ${payload.roomCode} is full`;
+        socket.emit('room-full', { message });
+        socket.emit('room-error', { code: 'ROOM_FULL', message });
+        socket.emit('error', { code: 'ROOM_FULL', message });
         return;
       }
 
@@ -120,7 +127,8 @@ export function registerRoomHandlers(
       });
     } catch (err: any) {
       Logger.warn(`join-room error: ${err.message}`);
-      socket.emit('error', { code: 'INVALID_JOIN_PAYLOAD', message: err.message || 'Failed to join room' });
+      socket.emit('room-error', { code: 'INVALID_CODE', message: err.message || 'Failed to join room' });
+      socket.emit('error', { code: 'INVALID_CODE', message: err.message || 'Failed to join room' });
     }
   });
 
