@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  stickman-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stickman-battle-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - CLIENT_URL=*
+      - TICK_RATE=60
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
