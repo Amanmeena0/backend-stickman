@@ -1,5 +1,5 @@
-import { PlayerState } from '../types/game.js';
-import { CONFIG } from '../config/index.js';
+import { PlayerState } from '../types/game';
+import { CONFIG } from '../config';
 
 export interface BotAction {
   moveDirection: -1 | 0 | 1;

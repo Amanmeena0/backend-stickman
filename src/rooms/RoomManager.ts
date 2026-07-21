@@ -1,7 +1,7 @@
-import { Room } from './Room.js';
-import { RoomConfig, RoomInfo } from '../types/room.js';
-import { CONFIG } from '../config/index.js';
-import { Logger } from '../utils/logger.js';
+import { Room } from './Room';
+import { RoomConfig, RoomInfo } from '../types/room';
+import { CONFIG } from '../config';
+import { Logger } from '../utils/logger';
 
 export class RoomManager {
   private roomsByCode: Map<string, Room> = new Map();

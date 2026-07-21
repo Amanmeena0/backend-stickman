@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../../types/socket.js';
-import { pingSchema } from '../validators.js';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../../types/socket';
+import { pingSchema } from '../validators';
 
 export function registerHeartbeatHandlers(
   socket: Socket<ClientToServerEvents, ServerToClientEvents, {}, SocketData>

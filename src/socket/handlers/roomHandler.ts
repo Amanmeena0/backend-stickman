@@ -1,9 +1,9 @@
 import { Socket, Server } from 'socket.io';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../../types/socket.js';
-import { RoomManager } from '../../rooms/RoomManager.js';
-import { createRoomSchema, joinRoomSchema, reconnectSchema } from '../validators.js';
-import { GameLoopCallbacks } from '../../game/GameLoop.js';
-import { Logger } from '../../utils/logger.js';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../../types/socket';
+import { RoomManager } from '../../rooms/RoomManager';
+import { createRoomSchema, joinRoomSchema, reconnectSchema } from '../validators';
+import { GameLoopCallbacks } from '../../game/GameLoop';
+import { Logger } from '../../utils/logger';
 
 export function registerRoomHandlers(
   io: Server<ClientToServerEvents, ServerToClientEvents, {}, SocketData>,

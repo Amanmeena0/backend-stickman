@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { RoomManager } from '../rooms/RoomManager.js';
+import { RoomManager } from '../rooms/RoomManager';
 
 export class HealthController {
   private roomManager: RoomManager;

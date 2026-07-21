@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PlayerState, GameState, Vector2D } from '../types/game.js';
-import { RoomConfig, RoomInfo } from '../types/room.js';
-import { GameLoop, GameLoopCallbacks } from '../game/GameLoop.js';
-import { CONFIG } from '../config/index.js';
-import { generateRoomCode } from '../utils/nanoid.js';
-import { Logger } from '../utils/logger.js';
+import { PlayerState, GameState, Vector2D } from '../types/game';
+import { RoomConfig, RoomInfo } from '../types/room';
+import { GameLoop, GameLoopCallbacks } from '../game/GameLoop';
+import { CONFIG } from '../config';
+import { generateRoomCode } from '../utils/nanoid';
+import { Logger } from '../utils/logger';
 
 export class Room {
   public readonly roomId: string;

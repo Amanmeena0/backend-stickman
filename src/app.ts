@@ -3,10 +3,10 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
-import { CONFIG } from './config/index.js';
-import { RoomManager } from './rooms/RoomManager.js';
-import { HealthController } from './controllers/healthController.js';
-import { httpRateLimiter, errorHandler } from './middleware/security.js';
+import { CONFIG } from './config';
+import { RoomManager } from './rooms/RoomManager';
+import { HealthController } from './controllers/healthController';
+import { httpRateLimiter, errorHandler } from './middleware/security';
 
 export function createApp(roomManager: RoomManager): Application {
   const app = express();

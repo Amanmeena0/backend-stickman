@@ -1,6 +1,6 @@
-import { PlayerState, Vector2D } from '../types/game.js';
-import { CONFIG } from '../config/index.js';
-import { VectorUtils } from '../utils/vector.js';
+import { PlayerState, Vector2D } from '../types/game';
+import { CONFIG } from '../config';
+import { VectorUtils } from '../utils/vector';
 
 export interface HitResult {
   attackerId: string;

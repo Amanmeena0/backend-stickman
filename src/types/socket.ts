@@ -1,4 +1,4 @@
-import { GameState, DeltaGameState, Vector2D } from './game.js';
+import { GameState, DeltaGameState, Vector2D } from './game';
 
 export interface CreateRoomPayload {
   nickname: string;

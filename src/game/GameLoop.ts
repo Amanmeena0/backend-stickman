@@ -3,12 +3,12 @@ import {
   PlayerState,
   DeltaGameState,
   DeltaPlayerUpdate,
-} from '../types/game.js';
-import { PhysicsEngine } from './PhysicsEngine.js';
-import { CombatEngine, HitResult } from './CombatEngine.js';
-import { BotAI } from './BotAI.js';
-import { CONFIG } from '../config/index.js';
-import { Logger } from '../utils/logger.js';
+} from '../types/game';
+import { PhysicsEngine } from './PhysicsEngine';
+import { CombatEngine, HitResult } from './CombatEngine';
+import { BotAI } from './BotAI';
+import { CONFIG } from '../config';
+import { Logger } from '../utils/logger';
 
 export interface GameLoopCallbacks {
   onDeltaUpdate: (delta: DeltaGameState) => void;

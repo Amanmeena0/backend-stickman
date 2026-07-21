@@ -1,4 +1,4 @@
-import { Vector2D, BoundingBox } from '../types/game.js';
+import { Vector2D, BoundingBox } from '../types/game';
 
 export class VectorUtils {
   static create(x: number = 0, y: number = 0): Vector2D {

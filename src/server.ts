@@ -1,11 +1,11 @@
 import http from 'http';
 import { Server } from 'socket.io';
-import { CONFIG } from './config/index.js';
-import { RoomManager } from './rooms/RoomManager.js';
-import { createApp } from './app.js';
-import { setupSocketIO } from './socket/socketHandler.js';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types/socket.js';
-import { Logger } from './utils/logger.js';
+import { CONFIG } from './config';
+import { RoomManager } from './rooms/RoomManager';
+import { createApp } from './app';
+import { setupSocketIO } from './socket/socketHandler';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types/socket';
+import { Logger } from './utils/logger';
 
 const roomManager = new RoomManager();
 const app = createApp(roomManager);
@@ -24,6 +24,17 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents, {}, SocketData
 
 // Attach Socket.IO handlers
 const { rateLimiter } = setupSocketIO(io, roomManager);
+
+// Handle server listen errors gracefully (e.g. EADDRINUSE)
+server.on('error', (err: any) => {
+  if (err.code === 'EADDRINUSE') {
+    Logger.error(`Port ${CONFIG.PORT} is already in use.`);
+    Logger.error(`To fix this, either free up port ${CONFIG.PORT} or set a different PORT in your .env file.`);
+    process.exit(1);
+  } else {
+    Logger.error('Server error:', err);
+  }
+});
 
 // Start HTTP & Socket server
 const PORT = CONFIG.PORT;

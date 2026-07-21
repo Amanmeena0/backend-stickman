@@ -1,6 +1,6 @@
-import { PlayerState, BoundingBox } from '../types/game.js';
-import { CONFIG } from '../config/index.js';
-import { VectorUtils } from '../utils/vector.js';
+import { PlayerState, BoundingBox } from '../types/game';
+import { CONFIG } from '../config';
+import { VectorUtils } from '../utils/vector';
 
 export class PhysicsEngine {
   private readonly gravity = CONFIG.GAME.PHYSICS.GRAVITY;

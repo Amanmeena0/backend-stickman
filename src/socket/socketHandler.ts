@@ -1,11 +1,11 @@
 import { Server, Socket } from 'socket.io';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../types/socket.js';
-import { RoomManager } from '../rooms/RoomManager.js';
-import { SocketRateLimiter } from '../utils/rateLimiter.js';
-import { registerRoomHandlers } from './handlers/roomHandler.js';
-import { registerGameHandlers } from './handlers/gameHandler.js';
-import { registerHeartbeatHandlers } from './handlers/heartbeatHandler.js';
-import { Logger } from '../utils/logger.js';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../types/socket';
+import { RoomManager } from '../rooms/RoomManager';
+import { SocketRateLimiter } from '../utils/rateLimiter';
+import { registerRoomHandlers } from './handlers/roomHandler';
+import { registerGameHandlers } from './handlers/gameHandler';
+import { registerHeartbeatHandlers } from './handlers/heartbeatHandler';
+import { Logger } from '../utils/logger';
 
 export function setupSocketIO(
   io: Server<ClientToServerEvents, ServerToClientEvents, {}, SocketData>,

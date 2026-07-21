@@ -1,4 +1,4 @@
-import { GameState } from './game.js';
+import { GameState } from './game';
 
 export type RoomMode = 'pvp' | 'bot';
 

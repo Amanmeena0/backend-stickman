@@ -1,4 +1,4 @@
-import { CONFIG } from '../config/index.js';
+import { CONFIG } from '../config';
 
 interface RateLimitTracker {
   count: number;

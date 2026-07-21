@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../../types/socket.js';
-import { RoomManager } from '../../rooms/RoomManager.js';
-import { moveSchema } from '../validators.js';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from '../../types/socket';
+import { RoomManager } from '../../rooms/RoomManager';
+import { moveSchema } from '../validators';
 
 export function registerGameHandlers(
   socket: Socket<ClientToServerEvents, ServerToClientEvents, {}, SocketData>,
